@@ -1,0 +1,4 @@
+#dont store the log file
+screen.log
+#test file 
+screentest.py

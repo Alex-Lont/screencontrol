@@ -1,0 +1,13 @@
+ [Unit]
+ Description=Screen control script
+ After=multi-user.target
+
+ [Service]
+ User=root
+ Type=idle
+ WorkingDirectory=/home/pi/screencontrol
+ ExecStart=/usr/bin/python /home/pi/screencontrol/screen.py > /home/pi/screencontrol/screen.log 2>&1 
+ Restart=always
+
+ [Install]
+ WantedBy=multi-user.target
