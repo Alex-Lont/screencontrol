@@ -19,7 +19,7 @@ my_handler.setLevel(logging.DEBUG)
 app_log = logging.getLogger('root')
 app_log .setLevel(logging.DEBUG)
 app_log .addHandler(my_handler)
-app_log .info("*************************************************")
+app_log .info("***************Starting***************")
 
 #24hour time
 ON_TIME = int(os.getenv("ON_TIME"))
@@ -41,15 +41,15 @@ def togglescreen():
     
 def checktime():
     if (now.hour == ON_TIME and now.minute == 30):
-        app_log.info("Time is %d:%d turning on screen",now.hour,now.minute)
+        app_log.info("Turning on screen")
         togglescreen()
         app_log.info("Status pin %d is %d", SCREEN, GPIO.input(SCREEN))
     elif (now.hour == OFF_TIME and now.minute == 30):
-        app_log.info("Time is %d:%d turning off screen" ,now.hour ,now.minute)
+        app_log.info("Turning off screen")
         togglescreen()
         app_log.info("Status pin %d is %d", SCREEN ,GPIO.input(SCREEN))
     else:
-        app_log.info("Time is %d:%d going to sleep", now.hour ,now.minute)
+        app_log.info("sleeping")
         app_log.info("Status pin %d is %d", SCREEN, GPIO.input(SCREEN))
 
 def screenstatus():
@@ -58,20 +58,20 @@ def screenstatus():
     f.close
     app_log .info("current status: %s", status)
     if (status == "0" and now.hour > ON_TIME and now.hour < OFF_TIME):
-        app_log.info("screen meant to be on turning on")
+        app_log.info("on state")
         togglescreen()  
     elif (status == "1" and now.hour < ON_TIME and now.hour > OFF_TIME):
         togglescreen()
-        app_log.info("screen meant to be off turning off")
+        app_log.info("off state")
     else:
-        app_log.info("screen in correct state doing nothing")
+        app_log.info("correct state")
 
 def writestatus():
     f = open("screen.txt","r")
     status = f.read()
     f.close()
     f = open("screen.txt","w")
-    app_log.info("toggling screen record")
+    app_log.info("toggling screen")
     if (status == "0"):
         f.write("1")
         f.close()
@@ -89,11 +89,8 @@ try:
         screenstatus()
         checktime()
         time.sleep(60)
-except SystemExit as e:
-    # this log will include traceback
-    app_log.exception("function_will_exit failed with exception")
-    # this log will just include content in sys.exit
-    app_log.error(str(e))
-    # if you don't need exception traceback from Python
-    # os._exit(1)
-    raise
+
+except Exception as err:
+    app_log.info("***************Exiting***************")
+    app_log.error("Function exited with %s", err)
+    sys.exit(err)

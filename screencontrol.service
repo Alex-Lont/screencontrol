@@ -6,7 +6,7 @@
  User=root
  Type=idle
  WorkingDirectory=/home/pi/screencontrol
- ExecStart=/usr/bin/python /home/pi/screencontrol/screen.py > /home/pi/screencontrol/screen.log 2>&1 
+ ExecStart=/usr/bin/python /home/pi/screencontrol/screen.py 
  Restart=always
 
  [Install]

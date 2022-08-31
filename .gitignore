@@ -1,3 +1,5 @@
+#dont store .env
+.env
 #dont store the log file
 screen.log
 #test file 
