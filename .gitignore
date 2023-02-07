@@ -1,6 +1,7 @@
 #dont store .env
 .env
 #dont store the log file
-screen.log
+screen.log*
+screen.txt
 #test file 
 screentest.py
