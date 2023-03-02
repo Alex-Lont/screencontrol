@@ -51,3 +51,39 @@ will create a log file screen.log in script folder, log is limited to 5mB.
 
 ### txt file
 screen.txt is used to hold the current state of the screen for reboots. also allows you to manual interact with screen if you need to change its state. 
+
+## Getting the dash board setup
+
+using docker container Organizr<br>
+
+### Install docker
+fetch docker install script from [docker](https://docs.docker.com/engine/install/debian/)
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+```
+run script to install docker
+```
+sudo sh get-docker.sh
+```
+add docker group to user. in this case user is pi
+```
+sudo usermod -aG docker pi
+```
+either logout or reboot for this to take effect
+
+### Organizr
+Deploy the organizr container
+deployment is written up in docker compose using details from [docker hub](https://hub.docker.com/r/organizr/organizr)
+
+``` 
+docker compose up -d
+```
+
+### Browser
+opens up a browser on boot to organizr screen.<br>
+add the following to file.<br>
+```
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
+```
+
+@chromium-browser http://127.0.0.1:90/#Homepage --kiosk --force-device-scale-factor=0.75

@@ -1,0 +1,17 @@
+version: "3.6"
+services:
+  organizr:
+    container_name: organizr
+    hostname: organizr
+    image: organizr/organizr:latest
+    ports:
+      - 90:80
+    volumes:
+      - ~/config/organizr:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+      - branch=v2-master
+      - fpm=true
+    restart: unless-stopped
