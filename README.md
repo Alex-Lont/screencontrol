@@ -6,6 +6,12 @@ controls screen via a NPN BJT wired accross the switch with the base going to a 
 BJT's collector wired to one side of the button and the  emitter to the other.  
 define the pin and times in the .env file.  
 
+## Requiremnts
+dotenv library is need else service will error out
+```
+pip install python-dotenv
+```
+
 ## Environment File
 
  - SCREEN_PIN pin which base is connected to. set up for bcm mode of the GPIOs
@@ -82,8 +88,12 @@ docker compose up -d
 ### Browser
 opens up a browser on boot to organizr screen.<br>
 add the following to file.<br>
+prevent screen from timing out<br>
 ```
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
 ```
 
 @chromium-browser http://127.0.0.1:90/#Homepage --kiosk --force-device-scale-factor=0.75
+@xset s noblank
+@xset s off
+@xset s -dpmsr
